@@ -34,7 +34,7 @@ int main()
 	AGuiSy::Font f(loadTexture("../data/font.png"));
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	f.renderText("Hi kids !", 10, 10);
+	f.renderText("Hi kids ! 8-D\nTrololo\nCan I haz a new line?", 10, 10);
 	SDL_GL_SwapBuffers();
 	SDL_Event e;
 	while (e.type != SDL_QUIT) SDL_WaitEvent(&e);

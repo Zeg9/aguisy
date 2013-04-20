@@ -42,9 +42,20 @@ namespace AGuiSy {
 	
 	void Font::renderText(std::string text, int x, int y)
 	{
+		int ax = 0;
+		int ay = 0;
 		for (int i = 0; i < text.size(); i++)
 		{
-			renderChar(text[i],x+i*8,y);
+			if (text[i] == '\n')
+			{
+				ax = 0;
+				ay += 1;
+			}
+			else
+			{
+				renderChar(text[i],x+ax*8,y+ay*16);
+				ax++;
+			}
 		}
 	}
 }
