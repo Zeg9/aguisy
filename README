@@ -1,0 +1,38 @@
+AGuiSy
+======
+
+AGuiSy is A GUI SYstem that works with OpenGL and SDL.
+Documentation will come soon, once everything works (well, not soon actually ;-)
+
+Current development state
+=========================
+For the moment, it does nothing more than rendering text.
+
+Compiling the library
+=====================
+The library requires SDL, GLEW, OpenGL to be available on your system.
+Compiling usually consists of a few steps:
+$ cd aguisy
+$ mkdir build && cd build
+$ cmake .. && make
+# make install
+
+Running the demo
+================
+To compile the demo, you first need to have installed the AGuiSy library.
+It also requires SDL_image in addition to the library's dependencies.
+After this is ready, the commands are similar to the previous ones:
+$ cd demo
+$ mkdir build && cd build
+$ cmake .. && make
+$ ./aguisy-demo
+
+You can also install it system-wide with
+# make install
+
+
+Using this in your own projects
+===============================
+If you use cmake, copy the FindAGuiSy.cmake file, it is available in //demo/cmake/
+If you compile with gcc, you just have to add -laguisy to the linking part.
+For other systems, well... You probably know them better than me.
