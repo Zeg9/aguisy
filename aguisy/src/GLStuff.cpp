@@ -33,11 +33,11 @@ namespace AGuiSy {
 	{
 		GLfloat quadUVs[] = {
 			uvx1,uvy1,
-			uvx2,uvy1,
 			uvx1,uvy2,
+			uvx2,uvy1,
 			uvx2,uvy2,
-			uvx1,uvy2,
 			uvx2,uvy1,
+			uvx1,uvy2,
 		};
 		glBindBuffer(GL_ARRAY_BUFFER, quadUVBuffer);
 		glBufferData(GL_ARRAY_BUFFER,
@@ -49,11 +49,11 @@ namespace AGuiSy {
 		glGenBuffers(1,&quadVertexBuffer);
 		GLfloat quadVertices[] = {
 			0,0,0,
-			1,0,0,
 			0,1,0,
+			1,0,0,
 			1,1,0,
-			0,1,0,
 			1,0,0,
+			0,1,0,
 		};
 		glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
 		glBufferData(GL_ARRAY_BUFFER,
@@ -144,6 +144,10 @@ namespace AGuiSy {
 		glDeleteShader(FragmentShaderID);
 
 		program = ProgramID;
+	}
+	void init()
+	{
+		initGLStuff(); // TODO move this
 	}
 	void drawQuad(int x, int y, int w, int h, GLuint texture)
 	{

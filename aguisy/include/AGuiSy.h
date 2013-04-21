@@ -20,4 +20,3 @@
 
 #include <AGuiSy/GLStuff.h>
 #include <AGuiSy/Font.h>
-

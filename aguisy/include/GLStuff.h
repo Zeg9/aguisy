@@ -28,6 +28,7 @@ namespace AGuiSy {
 	extern GLuint quadUVBuffer;
 	extern GLuint program;
 	void initGLStuff();
+	void init(); // TODO move this to... Init.cpp?
 	void setQuadUVs(float uvx1, float uvy1, float uvx2, float uvy2);
 	void drawQuad(int x, int y, int w, int h, GLuint texture);
 	void drawQuad(int x, int y, int w, int h, GLuint texture,
