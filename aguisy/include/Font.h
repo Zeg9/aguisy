@@ -30,8 +30,8 @@ namespace AGuiSy {
 		public:
 			Font(GLuint textureid);
 			~Font();
-			void renderChar(char c, int x, int y);
-			void renderText(std::string text, int x, int y);
+			void renderChar(char c, int x, int y, int size);
+			void renderText(std::string text, int x, int y, int size);
 		private:
 			GLuint texture;
 	};

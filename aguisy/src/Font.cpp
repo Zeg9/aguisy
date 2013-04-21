@@ -21,7 +21,6 @@
 
 #include "Font.h"
 #include "GLStuff.h"
-#include <iostream>
 
 namespace AGuiSy {
 	Font::Font(GLuint textureid)
@@ -31,16 +30,15 @@ namespace AGuiSy {
 	Font::~Font()
 	{}
 	
-	void Font::renderChar(char c, int x, int y)
+	void Font::renderChar(char c, int x, int y, int size)
 	{
 		float uvx = (c%16)/16.0;
 		float uvy = (c/16)/16.0;
-		std::cout << uvx*16.0 << ',' << uvy*16.0 << std::endl;
-		drawQuad(x,y,16,16,texture,
+		drawQuad(x,y,size,size,texture,
 			uvx, uvy, uvx+1.0/16.0,uvy+1.0/16.0);
 	}
 	
-	void Font::renderText(std::string text, int x, int y)
+	void Font::renderText(std::string text, int x, int y, int size)
 	{
 		int ax = 0;
 		int ay = 0;
@@ -53,7 +51,7 @@ namespace AGuiSy {
 			}
 			else
 			{
-				renderChar(text[i],x+ax*8,y+ay*16);
+				renderChar(text[i], x+ax*size*.5, y+ay*size, size);
 				ax++;
 			}
 		}

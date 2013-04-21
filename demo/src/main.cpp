@@ -21,23 +21,36 @@
 #include <AGuiSy/AGuiSy.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <iostream>
 
 GLuint loadTexture(const char * filename);
 SDL_Surface * flipSurface(SDL_Surface * surface);
 
 int main()
 {
+	std::cout << "Welcome !" << std::endl
+		<< "This is the AGuiSy official demo." << std::endl
+		<< "Remember: this is not finished (at all)" << std::endl;
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetVideoMode(640,480,32,SDL_OPENGL);
 	glewInit();
 	AGuiSy::initGLStuff();
 	AGuiSy::Font f(loadTexture("../data/font.png"));
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	f.renderText("Hi kids ! 8-D\nTrololo\nCan I haz a new line?", 10, 10);
-	SDL_GL_SwapBuffers();
 	SDL_Event e;
-	while (e.type != SDL_QUIT) SDL_WaitEvent(&e);
+	int size = 0;
+	bool sizeadd = true;
+	while (e.type != SDL_QUIT)
+	{
+		SDL_PollEvent(&e);
+		if (sizeadd) size ++;
+		else size --;
+		if (size >= 96) sizeadd = false;
+		if (size <= 0) sizeadd = true;
+		glClear(GL_COLOR_BUFFER_BIT);
+		f.renderText("Hi kids ! 8-D\nTrololo\nCan I haz a new line?", 10, 10, size);
+		SDL_GL_SwapBuffers();
+	}
 	SDL_Quit();
 }
 
