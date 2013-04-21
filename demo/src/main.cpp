@@ -19,6 +19,7 @@
  */
 
 #include <AGuiSy/AGuiSy.h>
+#include <GL/glew.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include <iostream>
@@ -26,7 +27,7 @@
 GLuint loadTexture(const char * filename);
 SDL_Surface * flipSurface(SDL_Surface * surface);
 
-int main()
+int main(int argc,char**argv)
 {
 	std::cout << "Welcome !" << std::endl
 		<< "This is the AGuiSy official demo." << std::endl
