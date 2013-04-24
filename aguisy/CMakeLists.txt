@@ -5,7 +5,7 @@ project(AGuiSy-lib)
 file(
 	GLOB_RECURSE
 	includes
-	include/*.h
+	include/AGuiSy/*.h
 )
 
 file(
@@ -16,6 +16,7 @@ file(
 )
 
 include_directories(include)
+include_directories(include/AGuiSy)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 link_libraries(

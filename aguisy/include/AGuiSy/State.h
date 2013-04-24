@@ -1,5 +1,5 @@
 /*
- * AGuiSy.h
+ * State.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,5 +18,17 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AGuiSy/GLStuff.h>
-#include <AGuiSy/Font.h>
+#ifndef __AGUISY_STATE_H__
+#define __AGUISY_STATE_H__
+
+namespace AGuiSy {
+	enum State {
+		STATE_NORMAL,
+		STATE_HOVER,
+		STATE_PRESS,
+		STATE_INACTIVE,
+	};
+}
+
+#endif /* __AGUISY_STATE_H__ */
+

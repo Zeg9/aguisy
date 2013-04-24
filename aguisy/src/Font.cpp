@@ -47,7 +47,7 @@ namespace AGuiSy {
 			if (text[i] == '\n')
 			{
 				ax = 0;
-				ay += 1;
+				ay ++;
 			}
 			else
 			{
@@ -55,6 +55,28 @@ namespace AGuiSy {
 				ax++;
 			}
 		}
+	}
+	
+	vec2 Font::textSize(std::string text, int size)
+	{
+		int mx(0), my(0);
+		int ax = 0;
+		int ay = 0;
+		for (int i = 0; i < text.size(); i++)
+		{
+			if (text[i] == '\n')
+			{
+				if (ax > mx) mx = ax;
+				ax = 0;
+				ay ++;
+			}
+			else
+				ax++;
+		}
+		if (ax > mx) mx = ax;
+		my = ay;
+		vec2 r((mx+1)*size*.5, (my+1)*size);
+		return r;
 	}
 }
 

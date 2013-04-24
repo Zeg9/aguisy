@@ -24,6 +24,7 @@
 
 #include <string>
 #include <GL/glew.h>
+#include <AGuiSy/Types.h>
 
 namespace AGuiSy {
 	class Font {
@@ -32,6 +33,7 @@ namespace AGuiSy {
 			~Font();
 			void renderChar(char c, int x, int y, int size);
 			void renderText(std::string text, int x, int y, int size);
+			vec2 textSize(std::string text, int size);
 		private:
 			GLuint texture;
 	};

@@ -29,76 +29,64 @@ SDL_Surface * flipSurface(SDL_Surface * surface);
 
 int main(int argc,char**argv)
 {
-	std::cout << "Welcome !" << std::endl
-		<< "This is the AGuiSy official demo." << std::endl
-		<< "Remember: this is not finished (at all)" << std::endl;
+	// Init SDL
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetVideoMode(640,480,32,SDL_OPENGL);
+	// Init GLEW
 	glewInit();
-	AGuiSy::initGLStuff();
-	AGuiSy::Font f(loadTexture("../data/font.png"));
+	// Init AGuiSy
+	AGuiSy::init();
+	// Load font
+	AGuiSy::Font f(AGuiSy::loadTexture("../data/font.png"));
+	// Load button style
+	AGuiSy::ElementStyle buttonStyle("../data/simpledark/button","../data/font.png");
+	// Create an element
+	AGuiSy::Element el(buttonStyle);
+	el.setPos(10,50);
+	el.setSize(128,24);
+	el.setText("I am a button");
+	// Set a nice clear color
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
+	
+	// Main loop
 	SDL_Event e;
-	int size = 0;
-	bool sizeadd = true;
-	while (e.type != SDL_QUIT)
+	bool quit = false;
+	while (!quit)
 	{
-		SDL_PollEvent(&e);
-		if (sizeadd) size ++;
-		else size --;
-		if (size >= 96) sizeadd = false;
-		if (size <= 0) sizeadd = true;
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT)
+			{
+				quit = true;
+				break;
+			}
+			if (e.type == SDL_MOUSEMOTION)
+			{
+				// You can enable this code to see the element's resizability
+				/*Uint8 state = SDL_GetMouseState(0,0);
+				if(state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+					AGuiSy::vec2 s = el.getSize();
+					el.setPos(e.motion.x-s.x/2,e.motion.y-s.y/2);
+				} else if (state & SDL_BUTTON(SDL_BUTTON_RIGHT)) {
+					AGuiSy::vec2 p = el.getPos();
+					el.setSize(e.motion.x-p.x,e.motion.y-p.y);
+				}*/
+			}
+			// Pass the event to the element
+			el.event(e);
+		}
+		// Clear the screen, then render
 		glClear(GL_COLOR_BUFFER_BIT);
-		f.renderText("Hi kids ! 8-D\nTrololo\nCan I haz a new line?", 10, 10, size);
+		// Little background text
+		f.renderText("Welcome to AGuiSy !", 10, 10, 24);
+		// Render our nice element
+		el.render();
+		// We're done, swap buffers
 		SDL_GL_SwapBuffers();
 	}
+	// Bye !
 	SDL_Quit();
 }
 
-
-GLuint loadTexture(const char * filename)
-{
-	GLuint glID;
-	SDL_Surface * picture_surface = NULL;
-	SDL_Surface *gl_surface = NULL;
-	SDL_Surface * gl_fliped_surface = NULL;
-	Uint32 rmask, gmask, bmask, amask;
-	picture_surface = IMG_Load(filename);
-	if (picture_surface == NULL)
-		return 0;
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	rmask = 0xff000000;
-	gmask = 0x00ff0000;
-	bmask = 0x0000ff00;
-	amask = 0x000000ff;
-#else
-	rmask = 0x000000ff;
-	gmask = 0x0000ff00;
-	bmask = 0x00ff0000;
-	amask = 0xff000000;
-#endif
-	SDL_PixelFormat format = *(picture_surface->format);
-	format.BitsPerPixel = 32;
-	format.BytesPerPixel = 4;
-	format.Rmask = rmask;
-	format.Gmask = gmask;
-	format.Bmask = bmask;
-	format.Amask = amask;
-	gl_surface = SDL_ConvertSurface(picture_surface,&format,SDL_SWSURFACE);
-	glGenTextures(1, &glID);
-	glBindTexture(GL_TEXTURE_2D, glID);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, gl_surface->w,
-			gl_surface->h, 0, GL_RGBA,GL_UNSIGNED_BYTE,
-			gl_surface->pixels);
-	// When MAGnifying the image (no bigger mipmap available), use LINEAR filtering
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// When MINifying the image, use a LINEAR blend of two mipmaps, each filtered LINEARLY too
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	// Generate mipmaps, by the way.
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SDL_FreeSurface(gl_surface);
-	SDL_FreeSurface(picture_surface);
-	return glID;
-}
 
 
