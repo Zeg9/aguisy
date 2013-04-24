@@ -1,5 +1,5 @@
 /*
- * AGuiSy.h
+ * Entry.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,14 +18,12 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AGuiSy/GLStuff.h>
-#include <AGuiSy/SDLStuff.h>
-#include <AGuiSy/Init.h>
-#include <AGuiSy/Font.h>
-#include <AGuiSy/State.h>
-#include <AGuiSy/Style.h>
-#include <AGuiSy/Event.h>
 #include <AGuiSy/Element.h>
-#include <AGuiSy/Button.h>
-#include <AGuiSy/Entry.h>
 
+namespace AGuiSy {
+	class Entry : public Element {
+		public:
+			Entry(ElementStyle &_style, EventHandler &_handler);
+			virtual void event(SDL_Event &e);
+	};
+}

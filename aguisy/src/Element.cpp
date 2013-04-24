@@ -22,13 +22,15 @@
 #include "State.h"
 #include "Style.h"
 #include "Element.h"
+#include "Event.h"
 
 namespace AGuiSy {
-	Element::Element(ElementStyle &_style):
+	Element::Element(ElementStyle &_style, EventHandler &_handler):
 		style(_style),
 		x(24), y(24), w(256), h(24),
 		text("element"),
-		state(STATE_NORMAL)
+		state(STATE_NORMAL),
+		handler(_handler)
 	{
 	}
 	Element::~Element() {}
@@ -76,45 +78,12 @@ namespace AGuiSy {
 			style.getFont().renderText(text, x+w/2-s.x/2,y+h/2-s.y/2, fs);
 		}
 	}
-	void Element::event(SDL_Event &e)
-	{
-		if (e.type == SDL_MOUSEMOTION)
-		{
-			if (e.motion.x >= x
-			 && e.motion.x <= x+w
-			 && e.motion.y >= y
-			 && e.motion.y <= y+h)
-			{
-				if (state == STATE_NORMAL)
-					state = STATE_HOVER;
-			}
-			else if (state == STATE_HOVER)
-				state = STATE_NORMAL;
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN)
-		{
-			if (state == STATE_HOVER)
-				state = STATE_PRESS;
-		}
-		if (e.type == SDL_MOUSEBUTTONUP)
-		{
-			if (state == STATE_PRESS)
-			{
-				if (e.button.x >= x
-				 && e.button.x <= x+w
-				 && e.button.y >= y
-				 && e.button.y <= y+h)
-					state = STATE_HOVER;
-				else
-					state = STATE_NORMAL;
-			}
-		}
-	}
 	vec2 Element::getPos() { return vec2(x,y); }
 	void Element::setPos(int _x, int _y) {x = _x; y = _y;}
 	vec2 Element::getSize() { return vec2(w,h); }
 	void Element::setSize(int _w, int _h) {w = _w; h = _h;}
 	std::string Element::getText() { return text; }
 	void Element::setText(std::string _text) { text = _text; }
+	void Element::setEventHandler(EventHandler &_handler) { handler = _handler; }
 }
 

@@ -24,14 +24,21 @@
 #include <SDL/SDL_image.h>
 #include <iostream>
 
-GLuint loadTexture(const char * filename);
-SDL_Surface * flipSurface(SDL_Surface * surface);
+class MyEventHandler : public AGuiSy::EventHandler
+{
+	public:
+		virtual void onEvent(AGuiSy::Element &element, AGuiSy::Event &event)
+		{
+			std::cout << "event !!" << event.type << std::endl;
+		}
+};
 
 int main(int argc,char**argv)
 {
 	// Init SDL
 	SDL_Init(SDL_INIT_VIDEO);
 	SDL_SetVideoMode(640,480,32,SDL_OPENGL);
+	SDL_EnableUNICODE(1);
 	// Init GLEW
 	glewInit();
 	// Init AGuiSy
@@ -40,8 +47,10 @@ int main(int argc,char**argv)
 	AGuiSy::Font f(AGuiSy::loadTexture("../data/font.png"));
 	// Load button style
 	AGuiSy::ElementStyle buttonStyle("../data/simpledark/button","../data/font.png");
+	// Make an instance of my event handler
+	MyEventHandler handler;
 	// Create an element
-	AGuiSy::Element el(buttonStyle);
+	AGuiSy::Button el(buttonStyle,handler);
 	el.setPos(10,50);
 	el.setSize(128,24);
 	el.setText("I am a button");

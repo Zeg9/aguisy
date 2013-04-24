@@ -1,5 +1,5 @@
 /*
- * AGuiSy.h
+ * Event.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,14 +18,34 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AGuiSy/GLStuff.h>
-#include <AGuiSy/SDLStuff.h>
-#include <AGuiSy/Init.h>
-#include <AGuiSy/Font.h>
-#include <AGuiSy/State.h>
-#include <AGuiSy/Style.h>
-#include <AGuiSy/Event.h>
+#ifndef __AGUISY_EVENT_H__
+#define __AGUISY_EVENT_H__
+
+#include <SDL/SDL.h>
 #include <AGuiSy/Element.h>
-#include <AGuiSy/Button.h>
-#include <AGuiSy/Entry.h>
+
+namespace AGuiSy {
+	enum EventType {
+		EVENT_MOUSEIN,
+		EVENT_MOUSEOUT,
+		EVENT_MOUSEDOWN,
+		EVENT_MOUSEUP,
+		EVENT_KEYDOWN,
+		EVENT_KEYUP,
+	};
+
+	struct Event {
+		Event(EventType _type, uint8_t _keycode=0, uint16_t _unicode=0);
+		EventType type;
+		uint8_t keycode;
+		uint16_t unicode;
+	};
+
+	class EventHandler {
+		public:
+			virtual void onEvent(Element &element, Event &event) = 0;
+	};
+}
+
+#endif /* __AGUISY_EVENT_H__ */
 

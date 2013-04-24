@@ -24,28 +24,32 @@
 #include <SDL/SDL.h>
 #include <AGuiSy/Types.h>
 #include <AGuiSy/State.h>
+#include <string>
 
 namespace AGuiSy {
 	class ElementStyle;
+	class EventHandler;
 
 	class Element
 	{
 		public:
-			Element(ElementStyle &_style);
-			~Element();
-			void render();
-			void event(SDL_Event &e);
+			Element(ElementStyle &_style, EventHandler &_handler);
+			virtual ~Element();
+			virtual void render();
+			virtual void event(SDL_Event &e) = 0;
 			vec2 getPos();
 			void setPos(int _x, int _y);
 			vec2 getSize();
 			void setSize(int _w, int _h);
 			std::string getText();
 			void setText(std::string _text);
-		private:
+			void setEventHandler(EventHandler &_handler);
+		protected:
 			ElementStyle &style;
 			int x, y, w, h;
 			std::string text;
 			State state;
+			EventHandler &handler;
 	};
 }
 
