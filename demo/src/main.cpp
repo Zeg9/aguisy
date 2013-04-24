@@ -45,15 +45,19 @@ int main(int argc,char**argv)
 	AGuiSy::init();
 	// Load font
 	AGuiSy::Font f(AGuiSy::loadTexture("../data/font.png"));
-	// Load button style
+	// Load styles
 	AGuiSy::ElementStyle buttonStyle("../data/simpledark/button","../data/font.png");
+	AGuiSy::ElementStyle entryStyle("../data/simpledark/entry","../data/font.png");
 	// Make an instance of my event handler
 	MyEventHandler handler;
 	// Create an element
-	AGuiSy::Button el(buttonStyle,handler);
-	el.setPos(10,50);
-	el.setSize(128,24);
-	el.setText("I am a button");
+	AGuiSy::Button button(buttonStyle,handler);
+	button.setPos(10,50);
+	button.setSize(128,24);
+	button.setText("I am a button");
+	AGuiSy::Entry entry(entryStyle,handler);
+	entry.setPos(10,50+24+10);
+	entry.setSize(128,24);
 	// Set a nice clear color
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
 	
@@ -82,14 +86,16 @@ int main(int argc,char**argv)
 				}*/
 			}
 			// Pass the event to the element
-			el.event(e);
+			button.event(e);
+			entry.event(e);
 		}
 		// Clear the screen, then render
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Little background text
 		f.renderText("Welcome to AGuiSy !", 10, 10, 24);
-		// Render our nice element
-		el.render();
+		// Render our nice elements
+		button.render();
+		entry.render();
 		// We're done, swap buffers
 		SDL_GL_SwapBuffers();
 	}
