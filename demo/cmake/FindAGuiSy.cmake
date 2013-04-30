@@ -5,7 +5,7 @@
 #  AGUISY_INCLUDE_DIR
 
 #=============================================================================
-# GLStuff.h
+# FindAGuiSy.cmake
 # This file is part of AGuiSy
 #
 # Copyright (C) 2013 - Zeg9
@@ -33,4 +33,4 @@ find_package(PackageHandleStandardArgs)
 
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(AGuiSy
                                   REQUIRED_VARS AGUISY_LIBRARY
-                                  )#VERSION_VAR SDL_VERSION_STRING)
+                                  )
