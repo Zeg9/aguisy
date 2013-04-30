@@ -37,8 +37,10 @@ int main(int argc,char**argv)
 {
 	// Init SDL
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_SetVideoMode(640,480,32,SDL_OPENGL);
 	SDL_EnableUNICODE(1);
+	SDL_WM_SetCaption("AGuiSy demo",0);
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,SDL_DEFAULT_REPEAT_INTERVAL);
+	SDL_SetVideoMode(640,480,32,SDL_OPENGL);
 	// Init GLEW
 	glewInit();
 	// Init AGuiSy
@@ -101,6 +103,10 @@ int main(int argc,char**argv)
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Little background text
 		f.renderText("Welcome to AGuiSy !", 10, 10, 24);
+		f.renderText(
+			"AGuiSy is a work-in-progress.\n"
+			"There is still a lot to do.\n"
+			, 10, 50+24*3+10*3, 16);
 		// Label elements
 		f.renderText("<- A simple button. Try to click it, but IIRC it is useless", 128+10, 50+4, 16);
 		f.renderText("<- A text entry, click it to focus and write text in it.", 128+10, 50+24+10+4, 16);
