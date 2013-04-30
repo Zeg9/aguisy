@@ -73,11 +73,13 @@ namespace AGuiSy {
 		
 		// Text render, at middle of element
 		{
+			std::string t = getRenderText();
 			int fs = style.getFontSize();
-			vec2 s = style.getFont().textSize(text,fs);
-			style.getFont().renderText(text, x+w/2-s.x/2,y+h/2-s.y/2, fs);
+			vec2 s = style.getFont().textSize(t,fs);
+			style.getFont().renderText(t, x+w/2-s.x/2,y+h/2-s.y/2, fs);
 		}
 	}
+	std::string Element::getRenderText() { return getText(); }
 	vec2 Element::getPos() { return vec2(x,y); }
 	void Element::setPos(int _x, int _y) {x = _x; y = _y;}
 	vec2 Element::getSize() { return vec2(w,h); }

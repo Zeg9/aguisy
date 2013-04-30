@@ -20,10 +20,12 @@
 
 #include <AGuiSy/Entry.h>
 #include <AGuiSy/Event.h>
+#include <AGuiSy/Style.h>
 
 namespace AGuiSy {
 	Entry::Entry(ElementStyle &_style, EventHandler &_handler):
-		Element(_style,_handler)
+		Element(_style,_handler),
+		hideText(false)
 	{}
 	void Entry::event(SDL_Event &e)
 	{
@@ -75,9 +77,38 @@ namespace AGuiSy {
 		}
 		if (e.type == SDL_KEYDOWN)
 		{
-			text += (char)e.key.keysym.unicode;
-			Event ne(EVENT_KEYDOWN,e.key.keysym.sym,e.key.keysym.unicode);
-			handler.onEvent(*this,ne);
+			if (state == STATE_PRESS) {
+				if (e.key.keysym.sym == SDLK_BACKSPACE)
+					text = text.substr(0,text.size()-1);
+				char c = e.key.keysym.unicode;
+				if (c >= ' ' && c <= '~')
+					text += c;
+				Event ne(EVENT_KEYDOWN,e.key.keysym.sym,e.key.keysym.unicode);
+				handler.onEvent(*this,ne);
+			}
 		}
 	}
+	void Entry::render()
+	{
+		Element::render();
+		if (state == STATE_PRESS && SDL_GetTicks()%1000 < 500)
+		{
+			std::string t = getRenderText();
+			int fs = style.getFontSize();
+			vec2 s = style.getFont().textSize(t,fs);
+			style.getFont().renderChar('|', x+w/2+s.x/2-fs/2, y+h/2-s.y/2, fs);
+		}
+	}
+	std::string Entry::getRenderText()
+	{
+		std::string t = Element::getRenderText();
+		if (getHideText())
+		{
+			for (int i = 0; i < t.size(); i++)
+				t[i] = '*';
+		}
+		return t;
+	}
+	bool Entry::getHideText() { return hideText; }
+	void Entry::setHideText(bool hide) { hideText = hide; }
 }

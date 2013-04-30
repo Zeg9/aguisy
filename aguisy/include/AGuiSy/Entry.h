@@ -25,5 +25,11 @@ namespace AGuiSy {
 		public:
 			Entry(ElementStyle &_style, EventHandler &_handler);
 			virtual void event(SDL_Event &e);
+			virtual void render();
+			virtual std::string getRenderText();
+			bool getHideText();
+			void setHideText(bool hide);
+		protected:
+			bool hideText;
 	};
 }

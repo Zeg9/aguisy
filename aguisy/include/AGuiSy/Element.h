@@ -37,6 +37,7 @@ namespace AGuiSy {
 			virtual ~Element();
 			virtual void render();
 			virtual void event(SDL_Event &e) = 0;
+			virtual std::string getRenderText();
 			vec2 getPos();
 			void setPos(int _x, int _y);
 			vec2 getSize();

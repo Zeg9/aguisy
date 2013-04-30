@@ -58,6 +58,12 @@ int main(int argc,char**argv)
 	AGuiSy::Entry entry(entryStyle,handler);
 	entry.setPos(10,50+24+10);
 	entry.setSize(128,24);
+	entry.setText("");
+	AGuiSy::Entry entry2(entryStyle,handler);
+	entry2.setPos(10,50+24*2+10*2);
+	entry2.setSize(128,24);
+	entry2.setHideText(true);
+	entry2.setText("");
 	// Set a nice clear color
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
 	
@@ -88,14 +94,21 @@ int main(int argc,char**argv)
 			// Pass the event to the element
 			button.event(e);
 			entry.event(e);
+			entry2.event(e);
+			// TODO (in the library): AGuiSy::event(e) and AGuiSy::render()
 		}
 		// Clear the screen, then render
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Little background text
 		f.renderText("Welcome to AGuiSy !", 10, 10, 24);
+		// Label elements
+		f.renderText("<- A simple button. Try to click it, but IIRC it is useless", 128+10, 50+4, 16);
+		f.renderText("<- A text entry, click it to focus and write text in it.", 128+10, 50+24+10+4, 16);
+		f.renderText("<- An entry with hidden text, good for passwords", 128+10, 50+24*2+10*2+4, 16);
 		// Render our nice elements
 		button.render();
 		entry.render();
+		entry2.render();
 		// We're done, swap buffers
 		SDL_GL_SwapBuffers();
 	}
