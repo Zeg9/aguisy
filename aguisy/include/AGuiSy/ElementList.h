@@ -1,5 +1,5 @@
 /*
- * Parser.h
+ * ElementList.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,15 +18,24 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __AGUISY_PARSER_H__
-#define __AGUISY_PARSER_H__
+#ifndef __AGUISY_ELEMENTLIST_H__
+#define __AGUISY_ELEMENTLIST_H__
 
-#include <string>
+#include <SDL/SDL.h>
+#include <AGuiSy/Element.h>
+#include <list>
 
 namespace AGuiSy {
-	class Element;
-	void parseElements(std::string def);
+	extern std::list<Element*> elementList;
+	void addElement(Element *el);
+	Element *getElement(std::string name);
+	void deleteElement(Element *el);
+	void deleteElement(std::string name);
+	void clearElements();
+	
+	void render();
+	void event(SDL_Event &e);
 }
 
-#endif /* __AGUISY_PARSER_H__ */
+#endif /* __AGUISY_ELEMENTLIST_H__ */
 

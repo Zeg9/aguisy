@@ -29,4 +29,5 @@
 #include <AGuiSy/Button.h>
 #include <AGuiSy/Entry.h>
 #include <AGuiSy/Parser.h>
+#include <AGuiSy/ElementList.h>
 

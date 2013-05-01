@@ -41,7 +41,7 @@ namespace AGuiSy {
 					handler->onEvent(*this, e);
 				}
 			}
-			else if (state == STATE_HOVER)
+			else if (state == STATE_HOVER || state == STATE_PRESS)
 			{
 				state = STATE_NORMAL;
 				Event e(EVENT_MOUSEOUT);

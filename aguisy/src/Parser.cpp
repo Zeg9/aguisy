@@ -24,11 +24,12 @@
 #include "Element.h"
 #include "Button.h"
 #include "Entry.h"
+#include "ElementList.h"
 
 #include <iostream>
 
 namespace AGuiSy {
-	Element *parseElement(std::string def)
+	void parseElements(std::string def)
 	{
 		std::string tmp(""), key("");
 		std::string type("");
@@ -51,7 +52,12 @@ namespace AGuiSy {
 				}
 			} else {
 				if (def[i] == ']') {
-					// TODO make this load multiple elements instead of one
+					if (e)
+					{
+						deleteElement(e->getName());
+						addElement(e);
+						e = 0;
+					}
 					indef = false;
 				} else if (def[i] == '=') {
 					key = tmp;
@@ -84,6 +90,5 @@ namespace AGuiSy {
 				}
 			}
 		}
-		return e;
 	}
 }

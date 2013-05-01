@@ -21,6 +21,7 @@
 #include "GLStuff.h"
 #include "Style.h"
 #include "Event.h"
+#include "ElementList.h"
 
 namespace AGuiSy {
 	void init(std::string stylePath, EventHandler*handlerInstance)
@@ -31,6 +32,7 @@ namespace AGuiSy {
 	}
 	void quit()
 	{
+		clearElements();
 		if (mainStyle != 0) delete mainStyle;
 		if (mainHandler != 0) delete mainHandler;
 	}
