@@ -23,7 +23,7 @@
 namespace AGuiSy {
 	class Entry : public Element {
 		public:
-			Entry(ElementStyle &_style, EventHandler &_handler);
+			Entry(ElementStyle &_style, EventHandler *_handler);
 			virtual void event(SDL_Event &e);
 			virtual void render();
 			virtual std::string getRenderText();

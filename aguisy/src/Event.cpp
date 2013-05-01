@@ -24,4 +24,5 @@ namespace AGuiSy {
 	Event::Event(EventType _type, uint8_t _keycode, uint16_t _unicode):
 		type(_type), keycode(_keycode), unicode(_unicode)
 	{}
+	EventHandler *mainHandler(0);
 }

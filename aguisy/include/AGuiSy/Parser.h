@@ -1,5 +1,5 @@
 /*
- * Types.cpp
+ * Parser.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,23 +18,15 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Types.h"
-#include <sstream>
+#ifndef __AGUISY_PARSER_H__
+#define __AGUISY_PARSER_H__
+
+#include <string>
+
 namespace AGuiSy {
-	vec2::vec2() : x(0), y(0) {}
-	vec2::vec2(int _x, int _y) : x(_x), y(_y) {}
-	vec2::vec2(std::string fromString)
-	{
-		std::string tmp(""), sx(""), sy("");
-		for (int i = 0; i < fromString.size(); i++)
-		{
-			if (fromString[i]==',') { sx = tmp; tmp = ""; }
-			else tmp += fromString[i];
-		}
-		sy = tmp;
-		std::istringstream issx(sx);
-		issx >> x;
-		std::istringstream issy(sy);
-		issy >> y;
-	}
+	class Element;
+	Element *parseElement(std::string def);
 }
+
+#endif /* __AGUISY_PARSER_H__ */
+

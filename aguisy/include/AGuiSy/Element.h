@@ -33,24 +33,29 @@ namespace AGuiSy {
 	class Element
 	{
 		public:
-			Element(ElementStyle &_style, EventHandler &_handler);
+			Element(ElementStyle &_style, EventHandler *_handler);
 			virtual ~Element();
 			virtual void render();
 			virtual void event(SDL_Event &e) = 0;
 			virtual std::string getRenderText();
 			vec2 getPos();
 			void setPos(int _x, int _y);
+			void setPos(vec2 v);
 			vec2 getSize();
 			void setSize(int _w, int _h);
+			void setSize(vec2 v);
+			std::string getName();
+			void setName(std::string _name);
 			std::string getText();
 			void setText(std::string _text);
-			void setEventHandler(EventHandler &_handler);
+			void setEventHandler(EventHandler *_handler);
 		protected:
 			ElementStyle &style;
 			int x, y, w, h;
+			std::string name;
 			std::string text;
 			State state;
-			EventHandler &handler;
+			EventHandler *handler;
 	};
 }
 

@@ -18,7 +18,7 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-//#include "GLStuff.h" // TODO fix GLfloat quadVertices declaration thingie
+#include "GLStuff.h"
 #include <GL/glew.h>
 #include <iostream> // TODO: use a global error and debug stream
 #include <vector>
@@ -103,13 +103,14 @@ namespace AGuiSy {
 		glCompileShader(VertexShaderID);
 
 		// Check Vertex Shader
-		glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
+		// TODO Check shaders and programs if some debug bool is true
+		/*glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
 		glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 		if ( InfoLogLength > 0 ){
 			std::vector<char> VertexShaderErrorMessage(InfoLogLength+1);
 			glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
 			std::cerr << &VertexShaderErrorMessage[0] << std::endl;
-		}
+		}*/
 
 		// Compile Fragment Shader
 		char const * FragmentSourcePointer = FragmentShaderCode.c_str();
@@ -117,13 +118,13 @@ namespace AGuiSy {
 		glCompileShader(FragmentShaderID);
 
 		// Check Fragment Shader
-		glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
+		/*glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
 		glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 		if ( InfoLogLength > 0 ){
 			std::vector<char> FragmentShaderErrorMessage(InfoLogLength+1);
 			glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
 			std::cerr << &FragmentShaderErrorMessage[0] << std::endl;
-		}
+		}*/
 
 		// Link the program
 		GLuint ProgramID = glCreateProgram();
@@ -132,22 +133,18 @@ namespace AGuiSy {
 		glLinkProgram(ProgramID);
 
 		// Check the program
-		glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+		/*glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
 		glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 		if ( InfoLogLength > 0 ){
 			std::vector<char> ProgramErrorMessage(InfoLogLength+1);
 			glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 			std::cerr << &ProgramErrorMessage[0] << std::endl;
-		}
+		}*/
 
 		glDeleteShader(VertexShaderID);
 		glDeleteShader(FragmentShaderID);
 
 		program = ProgramID;
-	}
-	void init()
-	{
-		initGLStuff(); // TODO move this
 	}
 	void drawQuad(int x, int y, int w, int h, GLuint texture)
 	{

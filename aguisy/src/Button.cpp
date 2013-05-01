@@ -22,7 +22,7 @@
 #include <AGuiSy/Event.h>
 
 namespace AGuiSy {
-	Button::Button(ElementStyle &_style, EventHandler &_handler):
+	Button::Button(ElementStyle &_style, EventHandler *_handler):
 		Element(_style,_handler)
 	{}
 	void Button::event(SDL_Event &e)
@@ -38,14 +38,14 @@ namespace AGuiSy {
 				{
 					state = STATE_HOVER;
 					Event e (EVENT_MOUSEIN);
-					handler.onEvent(*this, e);
+					handler->onEvent(*this, e);
 				}
 			}
 			else if (state == STATE_HOVER)
 			{
 				state = STATE_NORMAL;
 				Event e(EVENT_MOUSEOUT);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -54,7 +54,7 @@ namespace AGuiSy {
 			{
 				state = STATE_PRESS;
 				Event e(EVENT_MOUSEDOWN);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 		}
 		if (e.type == SDL_MOUSEBUTTONUP)
@@ -69,7 +69,7 @@ namespace AGuiSy {
 				else
 					state = STATE_NORMAL;
 				Event e(EVENT_MOUSEUP);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 		}
 	}

@@ -54,6 +54,13 @@ namespace AGuiSy {
 			GLuint inactive;
 			Font font;
 	};
+	struct Style
+	{
+		Style(std::string path);
+		ElementStyle button;
+		ElementStyle entry;
+	};
+	extern Style* mainStyle;
 }
 
 #endif /* __AGUISY_STYLE_H__ */

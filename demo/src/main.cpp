@@ -24,12 +24,18 @@
 #include <SDL/SDL_image.h>
 #include <iostream>
 
+AGuiSy::Element *entry2(0);
+
 class MyEventHandler : public AGuiSy::EventHandler
 {
 	public:
 		virtual void onEvent(AGuiSy::Element &element, AGuiSy::Event &event)
 		{
-			std::cout << "event !!" << event.type << std::endl;
+			//std::cout << "event: " << event.type << " on element " << element.getName() << std::endl;
+			if (element.getName() == "button" && event.type == AGuiSy::EVENT_MOUSEDOWN)
+				std::cout <<
+					"Okay, this button isn't useless -- it show the hidden entry's text: "
+					 << std::endl << '\t' << entry2->getText() << std::endl;
 		}
 };
 
@@ -44,28 +50,25 @@ int main(int argc,char**argv)
 	// Init GLEW
 	glewInit();
 	// Init AGuiSy
-	AGuiSy::init();
-	// Load font
-	AGuiSy::Font f(AGuiSy::loadTexture("../data/font.png"));
+	std::string themePath = "../data/themes/simpledark/";
+	AGuiSy::init(themePath, new MyEventHandler());
 	// Load styles
-	AGuiSy::ElementStyle buttonStyle("../data/simpledark/button","../data/font.png");
-	AGuiSy::ElementStyle entryStyle("../data/simpledark/entry","../data/font.png");
+	AGuiSy::Font f(AGuiSy::loadTexture(themePath+"font.png"));
+	AGuiSy::ElementStyle buttonStyle(themePath+"button",themePath+"font.png");
+	AGuiSy::ElementStyle entryStyle(themePath+"entry",themePath+"font.png");
 	// Make an instance of my event handler
-	MyEventHandler handler;
 	// Create an element
-	AGuiSy::Button button(buttonStyle,handler);
-	button.setPos(10,50);
-	button.setSize(128,24);
-	button.setText("I am a button");
-	AGuiSy::Entry entry(entryStyle,handler);
-	entry.setPos(10,50+24+10);
-	entry.setSize(128,24);
-	entry.setText("");
-	AGuiSy::Entry entry2(entryStyle,handler);
-	entry2.setPos(10,50+24*2+10*2);
-	entry2.setSize(128,24);
-	entry2.setHideText(true);
-	entry2.setText("");
+	// TODO implement below:
+	/*AGuiSy::loadElements(
+		"button[pos=10,50;size=128,24;name=button;text=I am a button]"
+		"entry[pos=10,84;size=128,24;name=entry1]"
+		"entry[pos=10,118;size=128,24;name=entry2;hide=true]");*/
+	AGuiSy::Element *button = AGuiSy::parseElement(
+		"button[pos=10,50;size=128,24;name=button;text=I am a button;]");
+	AGuiSy::Element *entry = AGuiSy::parseElement(
+		"entry[pos=10,84;size=128,24;name=entry;text=I am an entry;]");
+	entry2 = AGuiSy::parseElement(
+		"entry[pos=10,118;size=128,24;name=entry2;text=I am hidden !;hidetext=true;]");
 	// Set a nice clear color
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
 	
@@ -94,9 +97,9 @@ int main(int argc,char**argv)
 				}*/
 			}
 			// Pass the event to the element
-			button.event(e);
-			entry.event(e);
-			entry2.event(e);
+			button->event(e);
+			entry->event(e);
+			entry2->event(e);
 			// TODO (in the library): AGuiSy::event(e) and AGuiSy::render()
 		}
 		// Clear the screen, then render
@@ -112,13 +115,14 @@ int main(int argc,char**argv)
 		f.renderText("<- A text entry, click it to focus and write text in it.", 128+10, 50+24+10+4, 16);
 		f.renderText("<- An entry with hidden text, good for passwords", 128+10, 50+24*2+10*2+4, 16);
 		// Render our nice elements
-		button.render();
-		entry.render();
-		entry2.render();
+		button->render();
+		entry->render();
+		entry2->render();
 		// We're done, swap buffers
 		SDL_GL_SwapBuffers();
 	}
 	// Bye !
+	AGuiSy::quit();
 	SDL_Quit();
 }
 

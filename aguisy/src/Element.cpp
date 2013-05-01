@@ -25,10 +25,10 @@
 #include "Event.h"
 
 namespace AGuiSy {
-	Element::Element(ElementStyle &_style, EventHandler &_handler):
+	Element::Element(ElementStyle &_style, EventHandler *_handler):
 		style(_style),
 		x(24), y(24), w(256), h(24),
-		text("element"),
+		name(""), text(""),
 		state(STATE_NORMAL),
 		handler(_handler)
 	{
@@ -82,10 +82,14 @@ namespace AGuiSy {
 	std::string Element::getRenderText() { return getText(); }
 	vec2 Element::getPos() { return vec2(x,y); }
 	void Element::setPos(int _x, int _y) {x = _x; y = _y;}
+	void Element::setPos(vec2 v) { x = v.x; y = v.y; }
 	vec2 Element::getSize() { return vec2(w,h); }
 	void Element::setSize(int _w, int _h) {w = _w; h = _h;}
+	void Element::setSize(vec2 v) { w = v.x; h = v.y; }
+	std::string Element::getName() { return name; }
+	void Element::setName(std::string _name) { name = _name; }
 	std::string Element::getText() { return text; }
 	void Element::setText(std::string _text) { text = _text; }
-	void Element::setEventHandler(EventHandler &_handler) { handler = _handler; }
+	void Element::setEventHandler(EventHandler *_handler) { handler = _handler; }
 }
 

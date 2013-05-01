@@ -45,6 +45,7 @@ namespace AGuiSy {
 		public:
 			virtual void onEvent(Element &element, Event &event) = 0;
 	};
+	extern EventHandler *mainHandler;
 }
 
 #endif /* __AGUISY_EVENT_H__ */

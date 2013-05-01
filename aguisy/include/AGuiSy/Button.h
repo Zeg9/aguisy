@@ -23,7 +23,7 @@
 namespace AGuiSy {
 	class Button : public Element {
 		public:
-			Button(ElementStyle &_style, EventHandler &_handler);
+			Button(ElementStyle &_style, EventHandler *_handler);
 			virtual void event(SDL_Event &e);
 	};
 }

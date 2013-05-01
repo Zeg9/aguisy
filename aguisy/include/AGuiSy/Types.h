@@ -21,10 +21,13 @@
 #ifndef __AGUISY_TYPES_H__
 #define __AGUISY_TYPES_H__
 
+#include <string>
+
 namespace AGuiSy {
 	struct vec2 {
 		vec2();
 		vec2(int _x, int _y);
+		vec2(std::string fromString);
 		int x;
 		int y;
 	};

@@ -23,7 +23,7 @@
 #include <AGuiSy/Style.h>
 
 namespace AGuiSy {
-	Entry::Entry(ElementStyle &_style, EventHandler &_handler):
+	Entry::Entry(ElementStyle &_style, EventHandler *_handler):
 		Element(_style,_handler),
 		hideText(false)
 	{}
@@ -40,14 +40,14 @@ namespace AGuiSy {
 				{
 					state = STATE_HOVER;
 					Event e (EVENT_MOUSEIN);
-					handler.onEvent(*this, e);
+					handler->onEvent(*this, e);
 				}
 			}
 			else if (state == STATE_HOVER)
 			{
 				state = STATE_NORMAL;
 				Event e(EVENT_MOUSEOUT);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN)
@@ -56,7 +56,7 @@ namespace AGuiSy {
 			{
 				state = STATE_PRESS;
 				Event e(EVENT_MOUSEDOWN);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 			else if (state == STATE_PRESS && !(
 			    e.motion.x >= x
@@ -72,7 +72,7 @@ namespace AGuiSy {
 				else
 					state = STATE_NORMAL;
 				Event e(EVENT_MOUSEUP);
-				handler.onEvent(*this,e);
+				handler->onEvent(*this,e);
 			}
 		}
 		if (e.type == SDL_KEYDOWN)
@@ -84,7 +84,7 @@ namespace AGuiSy {
 				if (c >= ' ' && c <= '~')
 					text += c;
 				Event ne(EVENT_KEYDOWN,e.key.keysym.sym,e.key.keysym.unicode);
-				handler.onEvent(*this,ne);
+				handler->onEvent(*this,ne);
 			}
 		}
 	}

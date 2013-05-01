@@ -67,4 +67,11 @@ namespace AGuiSy {
 	{
 		return 16; // FIXME, hard coded value -- again
 	}
+	
+	Style::Style(std::string path):
+		button(path+"button",path+"font.png"),
+		entry(path+"entry",path+"font.png")
+	{}
+	
+	Style *mainStyle(0);
 }
