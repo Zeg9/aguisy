@@ -24,6 +24,7 @@
 #include "Element.h"
 #include "Button.h"
 #include "Entry.h"
+#include "ProgressBar.h"
 #include "ElementList.h"
 
 #include <iostream>
@@ -45,6 +46,8 @@ namespace AGuiSy {
 						e = new Button(mainStyle->button,mainHandler);
 					} else if (type == "entry") {
 						e = new Entry(mainStyle->entry,mainHandler);
+					} else if (type == "progressbar") {
+						e = new ProgressBar(mainStyle->button,mainHandler);
 					}
 					indef = true;
 				} else {

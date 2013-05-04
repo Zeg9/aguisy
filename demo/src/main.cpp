@@ -47,6 +47,11 @@ class MyEventHandler : public AGuiSy::EventHandler
 						" -- it shows the hidden entry's text: "
 						 << std::endl << '\t'
 						 << AGuiSy::getElement("entry2")->getText() << std::endl;
+				else if (element.getName() == "startprogress")
+				{
+					AGuiSy::ProgressBar* bar = (AGuiSy::ProgressBar*)AGuiSy::getElement("progress");
+					bar->percent = 0;
+				}
 				else if (element.getName() == "quit") quit = true;
 			}
 		}
@@ -72,12 +77,15 @@ int main(int argc,char**argv)
 		"button[pos=10,50;size=128,24;name=useless_button;text=I am a button;]"
 		"entry[pos=10,84;size=128,24;name=entry1;text=I am an entry;]"
 		"entry[pos=10,118;size=128,24;name=entry2;text=I am hidden !;hidetext=true;]"
+		"progressbar[pos=10,200;size=546,24;name=progress;]"
+		"button[pos=566,200;size=64,24;name=startprogress;text=Start;]"
 		"button[pos=502,446;size=128,24;name=quit;text=Leave me alone;]"
 	);
 	// Set a nice clear color
 	glClearColor(0.1f,0.1f,0.1f,1.0f);
 	
 	// Main loop
+	AGuiSy::ProgressBar* bar = (AGuiSy::ProgressBar*)AGuiSy::getElement("progress");
 	SDL_Event e;
 	while (!quit)
 	{
@@ -91,6 +99,8 @@ int main(int argc,char**argv)
 			// Pass the event to AGuiSy
 			AGuiSy::event(e);
 		}
+		if (bar->percent < 100)
+			bar->percent++;
 		// Clear the screen, then render
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Little background text

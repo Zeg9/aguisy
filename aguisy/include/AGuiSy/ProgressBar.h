@@ -1,5 +1,5 @@
 /*
- * AGuiSy.h
+ * ProgressBar.h
  * This file is part of AGuiSy
  *
  * Copyright (C) 2013 - Zeg9
@@ -18,17 +18,24 @@
  * along with AGuiSy. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AGuiSy/GLStuff.h>
-#include <AGuiSy/SDLStuff.h>
-#include <AGuiSy/Init.h>
-#include <AGuiSy/Font.h>
-#include <AGuiSy/State.h>
-#include <AGuiSy/Style.h>
-#include <AGuiSy/Event.h>
+
+#ifndef __AGUISY_PROGRESSBAR_H__
+#define __AGUISY_PROGRESSBAR_H__
+
 #include <AGuiSy/Element.h>
-#include <AGuiSy/Button.h>
-#include <AGuiSy/Entry.h>
-#include <AGuiSy/ProgressBar.h>
-#include <AGuiSy/Parser.h>
-#include <AGuiSy/ElementList.h>
+#include <string>
+
+namespace AGuiSy {
+	class ProgressBar : public Element {
+		public:
+			ProgressBar(ElementStyle &_style, EventHandler *_handler);
+			virtual void render();
+			virtual void event(SDL_Event &e);
+			virtual std::string getRenderText();
+		//private:
+			uint8_t percent;
+	};
+}
+
+#endif /* __AGUISY_PROGRESSBAR_H__ */
 
