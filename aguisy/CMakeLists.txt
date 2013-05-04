@@ -19,9 +19,13 @@ include_directories(include)
 include_directories(include/AGuiSy)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
+find_package(SDL REQUIRED)
+find_package(SDL_image REQUIRED)
 link_libraries(
 	${OPENGL_LIBRARY}
 	${GLEW_LIBRARY}
+	${SDL_LIBRARY}
+	${SDL_IMAGE_LIBRARY}
 )
 add_library(aguisy SHARED ${sources})
 #add_library(aguisy_static STATIC ${sources})
