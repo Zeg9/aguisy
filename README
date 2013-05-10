@@ -10,7 +10,7 @@ For the moment, it does nothing more than rendering text.
 
 Compiling the library
 =====================
-The library requires SDL, GLEW, OpenGL to be available on your system.
+The library requires SDL, GLEW, OpenGL and GLM to be available on your system.
 Compiling usually consists of a few steps:
 $ cd aguisy
 $ mkdir build && cd build
